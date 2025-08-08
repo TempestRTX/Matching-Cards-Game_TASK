@@ -6,7 +6,7 @@ public class GameManager : GenericSingleton<GameManager>
 {
  
   [SerializeField] private ScreenOrientation deviceOrientation = ScreenOrientation.LandscapeLeft;
-  
+  [SerializeField] private appData.BoardLayout ActiveboardLayout;
   public bool IsInit = false;
 
   private void Start()
@@ -14,12 +14,23 @@ public class GameManager : GenericSingleton<GameManager>
     SetDeviceOrientation();
     
   }
-
- 
   private void SetDeviceOrientation()
   {
     Screen.orientation = deviceOrientation;
   }
+  
+  #region Game Data
+
+  public (int rows, int cols) GetBoardLayout()
+  {
+    return appData.BoardLayoutExtensions.GetDimensions(this.ActiveboardLayout);
+  }
+
+  public void ChangeBoardLayout(int layoutid)
+  {
+    ActiveboardLayout=(appData.BoardLayout) layoutid;
+  }
+  #endregion
 
 
  
@@ -33,13 +44,24 @@ public class GameManager : GenericSingleton<GameManager>
     {
       case appData.UserAction.Backbutton:
         //Go back to previous screen
-      break;
+        break;
       case appData.UserAction.PlayGame:
         ProcessUserPlayAction(state);
         break;
       case appData.UserAction.RestartGame:
         ProcessUserRestartAction(state);
         break;
+      case appData.UserAction.LevelSelected:
+        ProcessUserLevelSelect(state);
+        break;
+    }
+  }
+
+  private void ProcessUserLevelSelect(appData.AppState state)
+  {
+    if (state==appData.AppState.LevelScreen)
+    {
+      ChangeAppState(appData.AppState.GameScreen);
     }
   }
 
@@ -47,7 +69,7 @@ public class GameManager : GenericSingleton<GameManager>
   {
     if (state==appData.AppState.SplashScreen)
     {
-      ChangeAppState(appData.AppState.GameScreen);
+      ChangeAppState(appData.AppState.LevelScreen);
     }
    
   }

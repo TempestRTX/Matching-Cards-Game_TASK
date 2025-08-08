@@ -41,6 +41,8 @@ public class CardFlipController : MonoBehaviour
 
     public void Initialize(Sprite front, Sprite back, int cardId)
     {
+        if (front == null)
+            Debug.LogError("front is null" + cardId);
         frontSprite = front;
         backSprite = back;
         cardImage.sprite = backSprite;

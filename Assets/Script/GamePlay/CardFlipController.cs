@@ -6,6 +6,7 @@ using System.Collections;
 [RequireComponent(typeof(RectTransform))]
 public class CardFlipController : MonoBehaviour
 {
+    
     [Header("Card Visuals")]
     public Image cardImage;             // Assign in Inspector
     public Sprite frontSprite;          // Card face
@@ -23,6 +24,7 @@ public class CardFlipController : MonoBehaviour
     public bool IsFlipping { get; private set; }
     public bool IsMatched { get; private set; }
 
+    public int CardID { get; private set; }
     public event Action<CardFlipController> OnFlipComplete;
 
     private RectTransform rectTransform;
@@ -44,6 +46,7 @@ public class CardFlipController : MonoBehaviour
         cardImage.sprite = backSprite;
         IsFaceUp = false;
         IsMatched = false;
+        CardID=cardId;
     }
 
     public void Flip()

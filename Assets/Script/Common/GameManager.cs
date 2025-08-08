@@ -26,6 +26,11 @@ public class GameManager : GenericSingleton<GameManager>
     return appData.BoardLayoutExtensions.GetDimensions(this.ActiveboardLayout);
   }
 
+  public appData.BoardLayout GetCurrentBoardLayout()
+  {
+    return ActiveboardLayout;
+  }
+
   public void ChangeBoardLayout(int layoutid)
   {
     ActiveboardLayout=(appData.BoardLayout) layoutid;

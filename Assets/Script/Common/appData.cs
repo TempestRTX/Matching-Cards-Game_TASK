@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -43,6 +44,14 @@ public class appData : MonoBehaviour
                     return (2, 2);
             }
         }
+    }
+
+    [Serializable]
+    public class GridDataObj
+    {
+        public BoardLayout layout;
+        public GameObject GridParent;
+        public List<CardFlipController> Cards;
     }
 
 

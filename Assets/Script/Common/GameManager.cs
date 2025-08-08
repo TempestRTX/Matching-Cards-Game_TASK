@@ -11,7 +11,7 @@ public class GameManager : GenericSingleton<GameManager>
 
   private void Start()
   {
-    SetDeviceOrientation();
+    //SetDeviceOrientation();
     
   }
   private void SetDeviceOrientation()

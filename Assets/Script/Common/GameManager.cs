@@ -1,16 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
 
 public class GameManager : GenericSingleton<GameManager>
 {
-  [SerializeField] private string filePath = "card_data.json";
-  [SerializeField] private List<appData.Card> cardDatas = new List<appData.Card>();
+ 
   [SerializeField] private ScreenOrientation deviceOrientation = ScreenOrientation.LandscapeLeft;
   
   public bool IsInit = false;
@@ -21,11 +15,7 @@ public class GameManager : GenericSingleton<GameManager>
     
   }
 
-  public List<appData.Card> GetCardData()
-  {
-    return cardDatas;
-  }
-
+ 
   private void SetDeviceOrientation()
   {
     Screen.orientation = deviceOrientation;

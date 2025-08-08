@@ -12,7 +12,7 @@ public class GameManager : GenericSingleton<GameManager>
   private void Start()
   {
     //SetDeviceOrientation();
-    
+    IsInit = true;
   }
   private void SetDeviceOrientation()
   {

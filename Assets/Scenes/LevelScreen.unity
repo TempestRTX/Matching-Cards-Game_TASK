@@ -922,7 +922,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cb03b6ec25044918b978f122e26728d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScreenName: 0
+  ScreenName: 2
   boardLayout: 0
 --- !u!4 &2124001236
 Transform:

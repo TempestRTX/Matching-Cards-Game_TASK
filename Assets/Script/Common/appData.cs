@@ -55,6 +55,15 @@ public class appData : MonoBehaviour
         public GameObject GridParent;
         public List<CardFlipController> Cards;
     }
+    
+    [System.Serializable]
+    public class GameSaveData
+    {
+        public List<int> allmatchedCardIDs = new List<int>();
+        public List<int> CurrentCardIDs = new List<int>();
+        public int score;
+        public int combo;
+    }
 
 
 

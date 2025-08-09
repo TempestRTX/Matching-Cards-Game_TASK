@@ -60,7 +60,10 @@ public class CardFlipController : MonoBehaviour
             StartCoroutine(FlipRoutine());
             
     }
-    
+    public void ForceFlipFaceUp()
+    {
+        StartCoroutine(FlipRoutine());
+    }
    
 
     public void SetMatched(bool matched)

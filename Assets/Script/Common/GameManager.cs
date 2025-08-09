@@ -71,6 +71,12 @@ public class GameManager : GenericSingleton<GameManager>
     SaveScore();
   }
 
+  public void UpdateScorefromLoadData(int score, int combo)
+  {
+    CurrentScore = score;
+    comboCount = combo;
+  }
+
   private void SaveScore()
   {
     EventManager.Instance.TriggerEvent(appData.OnScoreUpdated);
@@ -160,4 +166,26 @@ public class GameManager : GenericSingleton<GameManager>
   
   #endregion
 
+
+  #region Save Game
+
+  public void SaveGame(appData.BoardLayout layout ,appData.GameSaveData saveData )
+  {
+    PlayerPrefs.SetString(layout.ToString(), JsonUtility.ToJson(saveData));
+    PlayerPrefs.Save();
+    Debug.Log("Game saved.");
+  }
+
+  public appData.GameSaveData LoadGame(appData.BoardLayout layout)
+  {
+    var Data=PlayerPrefs.GetString(layout.ToString());
+    return JsonUtility.FromJson<appData.GameSaveData>(Data);
+  }
+
+  public void DeleteGame(appData.BoardLayout layout)
+  {
+    PlayerPrefs.DeleteKey(layout.ToString());
+  }
+
+  #endregion
 }

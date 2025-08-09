@@ -40,6 +40,7 @@ public class GameScreenManager : ScreenManager
        var matchedcards=ActivegridData.Cards.Where(x=>x.IsMatched).Count();
        if (matchedcards == ActivegridData.Cards.Count)
        {
+           gameManager.DeleteGame(currentBoardLayout);
            gameManager.OnUserAction(appData.UserAction.GameCompleted,ScreenName);
        }
     }
@@ -105,12 +106,16 @@ public class GameScreenManager : ScreenManager
     {
         //Init ids
         List<int> CardIDs = new List<int>();
-        for (int i = 0; i < ActivegridData.Cards.Count/2; i++)
+        if (!CheckforSaveGame(ref CardIDs))
         {
-            CardIDs.Add(i);
-            CardIDs.Add(i);
+            for (int i = 0; i < ActivegridData.Cards.Count/2; i++)
+            {
+                CardIDs.Add(i);
+                CardIDs.Add(i);
+            }
+            CardIDs = CardIDs.OrderBy(x => Random.value).ToList();
         }
-        CardIDs = CardIDs.OrderBy(x => Random.value).ToList();
+       
         int _cardindex = 0;
         foreach (var card in ActivegridData.Cards)
         {
@@ -119,13 +124,45 @@ public class GameScreenManager : ScreenManager
                 DefaultSprite,
                 CardIDs[_cardindex]);
             _cardindex++;
+            if (matchedCardIDs.Contains(card.CardID))
+            {
+                // Set as matched and keep face-up
+                card.SetMatched(true);
+                card.ForceFlipFaceUp();
+            }
         }
 
 
 
     }
 
-    
+    public void SaveGame()
+    {
+        appData.GameSaveData saveData = new  appData.GameSaveData
+        {
+            allmatchedCardIDs = matchedCardIDs.ToList(),
+            CurrentCardIDs=ActivegridData.Cards.Select(x => x.CardID).ToList(),
+            score = gameManager.CurrentScore,
+            combo = gameManager.comboCount,
+        };
+        gameManager.SaveGame(currentBoardLayout,saveData);
+    }
+
+    private bool CheckforSaveGame(ref List<int> CardIDs)
+    {
+        var data = gameManager.LoadGame(currentBoardLayout);
+        if (data == null)
+        {
+            return false;
+        }
+        else
+        {
+            CardIDs=data.CurrentCardIDs.ToList();
+            matchedCardIDs = new HashSet<int>(data.allmatchedCardIDs);
+            gameManager.UpdateScorefromLoadData(data.score, data.combo);
+            return true;
+        }
+    }
     
 
    

@@ -9,7 +9,8 @@ public class appData : MonoBehaviour
     {
         SplashScreen,
         GameScreen,
-        LevelScreen
+        LevelScreen,
+        CompleteScreen
     }
 
     public enum UserAction
@@ -17,7 +18,8 @@ public class appData : MonoBehaviour
         Backbutton,
         PlayGame,
         RestartGame,
-        LevelSelected
+        LevelSelected,
+        GameCompleted
         
     }
     

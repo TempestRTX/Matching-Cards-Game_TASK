@@ -97,7 +97,9 @@ public class GameManager : GenericSingleton<GameManager>
     {
       case appData.UserAction.Backbutton:
         //Go back to previous screen
+        ProcessBackButton(state);
         break;
+
       case appData.UserAction.PlayGame:
         ProcessUserPlayAction(state);
         break;
@@ -107,6 +109,25 @@ public class GameManager : GenericSingleton<GameManager>
       case appData.UserAction.LevelSelected:
         ProcessUserLevelSelect(state);
         break;
+      case appData.UserAction.GameCompleted:
+        ProcessUserGameComplete(state);
+        break;
+    }
+  }
+
+  private void ProcessUserGameComplete(appData.AppState state)
+  {
+    if (state==appData.AppState.GameScreen)
+    {
+      ChangeAppState(appData.AppState.CompleteScreen);
+    }
+  }
+
+  private void ProcessBackButton(appData.AppState state)
+  {
+    if (state == appData.AppState.CompleteScreen)
+    {
+      ChangeAppState(appData.AppState.LevelScreen);
     }
   }
 

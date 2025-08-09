@@ -32,6 +32,16 @@ public class GameScreenManager : ScreenManager
     {
         scoreText.text="Score : " + gameManager.CurrentScore.ToString();
         comboText.text = "Combo X"+ gameManager.comboCount.ToString();
+        
+    }
+
+    private void CheckifGameOver()
+    {
+       var matchedcards=ActivegridData.Cards.Where(x=>x.IsMatched).Count();
+       if (matchedcards == ActivegridData.Cards.Count)
+       {
+           gameManager.OnUserAction(appData.UserAction.GameCompleted,ScreenName);
+       }
     }
     
 
@@ -69,6 +79,7 @@ public class GameScreenManager : ScreenManager
             soundManager.PlaySound("Success");
             card1.SetMatched(true);
             card2.SetMatched(true);
+            CheckifGameOver();
         }
         else
         {

@@ -11,6 +11,7 @@ public class LevelScreenManager : ScreenManager
     public void ChangeBoardLayout(int layoutid)
     {
         gameManager.ChangeBoardLayout(layoutid);
+        gameManager.InitScore();
         gameManager.OnUserAction(appData.UserAction.LevelSelected,ScreenName);
     }
     

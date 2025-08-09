@@ -73,6 +73,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 498c4ae32aee5415f99ae091d747a781, type: 3}
   - {fileID: 21300000, guid: 194472749cf144bfa97ecb4d3a5e1d90, type: 3}
   - {fileID: 21300000, guid: 9cf57135e4f694ac282d259b75fef2ac, type: 3}
+  - {fileID: 21300000, guid: 4ed6a597302cc493cbbc2ec670b8468a, type: 3}
   - {fileID: 21300000, guid: 95c7edd7fcd934e85b8752653c78fb6e, type: 3}
   - {fileID: 21300000, guid: 9eb2e8e7d56ce44ea82389bb14d54bd6, type: 3}
   - {fileID: 21300000, guid: c785c429b39134e4ea479c1c43278521, type: 3}
@@ -89,6 +90,7 @@ SpriteAtlas:
   - Cap7
   - Cap8
   - Cap1
+  - Cap4
   - Cap14
   - Cap15
   - Cap5

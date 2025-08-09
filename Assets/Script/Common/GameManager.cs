@@ -13,6 +13,8 @@ public class GameManager : GenericSingleton<GameManager>
   {
     //SetDeviceOrientation();
     IsInit = true;
+    InitScore();
+   
   }
   private void SetDeviceOrientation()
   {
@@ -37,8 +39,54 @@ public class GameManager : GenericSingleton<GameManager>
   }
   #endregion
 
+  #region Score Logic
 
- 
+  [SerializeField] private int matchPoints = 100;
+  [SerializeField] private int comboBonus = 50;
+  [SerializeField] private int mismatchPenalty = 10;
+
+  public int CurrentScore { get; private set; }
+  public int comboCount { get; private set; }
+
+  public void InitScore()
+  {
+    CurrentScore = 0;
+    comboCount = 0;
+
+  }
+
+  public void AddMatchPoints()
+  {
+    comboCount++;
+    int points = matchPoints + (comboCount - 1) * comboBonus;
+    CurrentScore += points;
+    SaveScore();
+  }
+
+  public void AddMismatchPenalty()
+  {
+    comboCount = 0;
+    CurrentScore -= mismatchPenalty;
+    if (CurrentScore < 0) CurrentScore = 0;
+    SaveScore();
+  }
+
+  private void SaveScore()
+  {
+    EventManager.Instance.TriggerEvent(appData.OnScoreUpdated);
+    PlayerPrefs.SetInt("Score", CurrentScore);
+    PlayerPrefs.SetInt("Combo", comboCount);
+    PlayerPrefs.Save();
+  }
+
+  private void LoadScore()
+  {
+    CurrentScore = PlayerPrefs.GetInt("Score", 0);
+    comboCount = PlayerPrefs.GetInt("Combo", 0);
+  }
+
+  #endregion
+
   
   
   #region State Manager

@@ -6,6 +6,7 @@ using System.Collections;
 [RequireComponent(typeof(RectTransform))]
 public class CardFlipController : MonoBehaviour
 {
+    private EventManager _eventManager;
     
     [Header("Card Visuals")]
     public Image cardImage;             // Assign in Inspector
@@ -49,20 +50,25 @@ public class CardFlipController : MonoBehaviour
         IsFaceUp = false;
         IsMatched = false;
         CardID=cardId;
+        _eventManager = EventManager.Instance;
     }
 
     public void Flip()
     {
-        if (IsFlipping || IsMatched) return;
-        StartCoroutine(FlipRoutine());
+        if (IsFlipping || IsMatched || IsFaceUp) return;
+           _eventManager.TriggerEvent(appData.OnCardSelected,this);
+            StartCoroutine(FlipRoutine());
+            
     }
+    
+   
 
     public void SetMatched(bool matched)
     {
         IsMatched = matched;
         if (matched)
         {
-            // Optional: disable clicks, fade out, or particle effect
+            
         }
     }
 

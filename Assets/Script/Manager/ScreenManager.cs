@@ -5,6 +5,7 @@ public class ScreenManager : MonoBehaviour
     [SerializeField] protected appData.AppState ScreenName;
     protected GameManager gameManager;
     protected EventManager eventManager;
+    protected SoundManager soundManager;
 
     protected virtual void Start()
     {
@@ -20,5 +21,6 @@ public class ScreenManager : MonoBehaviour
     {
         gameManager = GameManager.Instance;
         eventManager = EventManager.Instance;
+        soundManager = SoundManager.Instance;
     }
 }

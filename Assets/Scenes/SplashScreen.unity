@@ -1235,7 +1235,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 0337611d18f5744bcaf89f7ddc942378, type: 3}
   - clipname: LevelWin
     clip: {fileID: 8300000, guid: 087891072fcdc4975928bcef8b4efe94, type: 3}
-  - clipname: Sucess
+  - clipname: Success
     clip: {fileID: 8300000, guid: dcf60d6754d564b07b0d11d11dc08710, type: 3}
 --- !u!4 &2054084322
 Transform:

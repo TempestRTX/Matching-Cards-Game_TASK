@@ -35,46 +35,51 @@ public class GameScreenManager : ScreenManager
     }
     
 
-    int ? firstid=null;
-    int ? secondId=null;
-    CardFlipController cardFlipControllerOne = new CardFlipController();
+    private List<CardFlipController> pendingSelection = new List<CardFlipController>();
+    private HashSet<int> matchedCardIDs = new HashSet<int>();
+
     private void OnCardSelected(object data)
     {
         CardFlipController card = (CardFlipController)data;
-        if (firstid == null)
-        {
-            firstid = card.CardID;
-            cardFlipControllerOne = card;
+
+        
+        if (matchedCardIDs.Contains(card.CardID) || card.IsFlipping || pendingSelection.Contains(card))
             return;
+
+        pendingSelection.Add(card);
+
+        
+        if (pendingSelection.Count == 2)
+        {
+            var first = pendingSelection[0];
+            var second = pendingSelection[1];
+            pendingSelection.Clear();
+            StartCoroutine(CheckCardPair(first, second));
         }
-        secondId = card.CardID;
-        StartCoroutine(CheckCardPair(card));
     }
 
-    private IEnumerator CheckCardPair(CardFlipController cardFlipController)
+    private IEnumerator CheckCardPair(CardFlipController card1, CardFlipController card2)
     {
-        yield return new WaitUntil(() => cardFlipController.IsFaceUp);
-        if (firstid == secondId)
+        yield return new WaitUntil(() => card1.IsFaceUp && card2.IsFaceUp);
+
+        if (card1.CardID == card2.CardID)
         {
-             
-            //Correct pair
+            matchedCardIDs.Add(card1.CardID);
             gameManager.AddMatchPoints();
-            soundManager.PlaySound("Sucess");
+            soundManager.PlaySound("Success");
+            card1.SetMatched(true);
+            card2.SetMatched(true);
         }
         else
         {
-            //Wrong pair
             gameManager.AddMismatchPenalty();
             yield return new WaitForSeconds(0.5f);
             soundManager.PlaySound("Fail");
-            cardFlipController.ResetCard();
-            cardFlipControllerOne.ResetCard();
-            
+            card1.ResetCard();
+            card2.ResetCard();
         }
-        firstid=null;
-        secondId=null;
-
     }
+
 
 
     private void SetupGameScreen()

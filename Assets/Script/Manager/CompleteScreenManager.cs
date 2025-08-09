@@ -12,6 +12,7 @@ public class CompleteScreenManager : ScreenManager
     {
         base.InitScreen();
         scoreText.text = gameManager.CurrentScore.ToString();
+        soundManager.PlaySound("LevelWin");
     }
 
     public void CloseApp()

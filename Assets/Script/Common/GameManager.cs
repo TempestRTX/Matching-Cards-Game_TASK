@@ -127,11 +127,16 @@ public class GameManager : GenericSingleton<GameManager>
     {
       ChangeAppState(appData.AppState.CompleteScreen);
     }
+   
   }
 
   private void ProcessBackButton(appData.AppState state)
   {
     if (state == appData.AppState.CompleteScreen)
+    {
+      ChangeAppState(appData.AppState.LevelScreen);
+    }
+    else if(state==appData.AppState.GameScreen)
     {
       ChangeAppState(appData.AppState.LevelScreen);
     }

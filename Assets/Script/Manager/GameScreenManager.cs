@@ -28,6 +28,11 @@ public class GameScreenManager : ScreenManager
         UpdateScore(this);
     }
 
+    public override void OnBackButtonClicked()
+    {
+        gameManager.OnUserAction(appData.UserAction.Backbutton,ScreenName);
+    }
+
     private void UpdateScore(object args)
     {
         scoreText.text="Score : " + gameManager.CurrentScore.ToString();
